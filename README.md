@@ -25,7 +25,7 @@ These are the existing services: "Employment Verification Service", "Compliance 
  - MySQL
 
 ## Database Design
-   - one emirate can only have one active application request
+   - one user can only have one active application request
    - table for application request
    - table for score board
    - table for submission history (ignore, no requirement for this yet)
