@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zanddemo.creditcard.repository.ScoreBoardRepository">
+
+  <resultMap id="scoreBoardMap" type="com.zanddemo.creditcard.entity.ScoreBoard">
+    <result column="id" property="id"/>
+    <result column="created_by" property="createdBy"/>
+    <result column="created_time" property="createdTime"/>
+    <result column="updated_by" property="updatedBy"/>
+    <result column="updated_time" property="updatedTime"/>
+    <result column="emirates_id" property="emiratesId"/>
+    <result column="identity_verified" property="identityVerified"/>
+    <result column="employment_submitted" property="employmentSubmitted"/>
+    <result column="employment_verified" property="employmentVerified"/>
+    <result column="compliance_submitted" property="complianceSubmitted"/>
+    <result column="compliance_checked" property="complianceChecked"/>
+    <result column="risk_submitted" property="riskSubmitted"/>
+    <result column="risk_percentage" property="riskPercentage"/>
+    <result column="behavior_submitted" property="behaviorSubmitted"/>
+    <result column="behavior_percentage" property="behaviorPercentage"/>
+    <result column="total_score" property="totalScore"/>
+  </resultMap>
+
+  <select id="findById" resultMap="scoreBoardMap">
+    SELECT * FROM score_board WHERE emirates_id = #{emiratesId}
+  </select>
+
+  <update id="update" parameterType="com.zanddemo.creditcard.entity.ScoreBoard">
+    UPDATE score_board
+    <trim prefix="set" suffixOverrides=",">
+      <if test="updatedBy != null and updatedBy !=''">updated_by = #{updatedBy},</if>
+      <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+      <if test="identityVerified != null">identity_verified = #{identityVerified},</if>
+      <if test="employmentSubmitted != null">employment_submitted = #{employmentSubmitted},</if>
+      <if test="employmentVerified != null">employment_verified = #{employmentVerified},</if>
+      <if test="complianceSubmitted != null">compliance_submitted = #{complianceSubmitted},</if>
+      <if test="complianceChecked != null">compliance_checked = #{complianceChecked},</if>
+      <if test="riskSubmitted != null">risk_submitted = #{riskSubmitted},</if>
+      <if test="riskPercentage != null">risk_percentage = #{riskPercentage},</if>
+      <if test="behaviorSubmitted != null">behavior_submitted = #{behaviorSubmitted},</if>
+      <if test="behaviorPercentage != null">behavior_percentage = #{behaviorPercentage},</if>
+      <if test="totalScore != null">total_score = #{totalScore},</if>
+    </trim>
+    WHERE emirates_id = #{emiratesId}
+  </update>
+
+  <update id="reset" parameterType="com.zanddemo.creditcard.entity.ScoreBoard">
+    UPDATE score_board
+    <trim prefix="set" suffixOverrides=",">
+      <if test="updatedBy != null and updatedBy !=''">updated_by = #{updatedBy},</if>
+      <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+      identity_verified = #{identityVerified},
+      employment_submitted = #{employmentSubmitted},
+      employment_verified = #{employmentVerified},
+      compliance_submitted = #{complianceSubmitted},
+      compliance_checked = #{complianceChecked},
+      risk_submitted = #{riskSubmitted},
+      risk_percentage = #{riskPercentage},
+      behavior_submitted = #{behaviorSubmitted},
+      behavior_percentage = #{behaviorPercentage},
+      total_score = #{totalScore},
+    </trim>
+    WHERE emirates_id = #{emiratesId}
+  </update>
+
+  <insert id="add" parameterType="com.zanddemo.creditcard.entity.ScoreBoard">
+    INSERT INTO score_board
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="emiratesId != null and emiratesId !=''">emirates_id,</if>
+      <if test="createdBy != null and createdBy !=''">created_by,</if>
+      <if test="createdTime != null">created_time,</if>
+      <if test="identityVerified != null">identity_verified,</if>
+      <if test="employmentSubmitted != null">employment_submitted,</if>
+      <if test="employmentVerified != null">employment_verified,</if>
+      <if test="complianceSubmitted != null">compliance_submitted,</if>
+      <if test="complianceChecked != null">compliance_checked,</if>
+      <if test="riskSubmitted != null">risk_submitted,</if>
+      <if test="riskPercentage != null">risk_percentage,</if>
+      <if test="behaviorSubmitted != null">behavior_submitted,</if>
+      <if test="behaviorPercentage != null">behavior_percentage,</if>
+      <if test="totalScore != null">total_score,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="emiratesId != null and emiratesId !=''">#{emiratesId},</if>
+      <if test="createdBy != null and createdBy !=''">#{createdBy},</if>
+      <if test="createdTime != null">#{createdTime},</if>
+      <if test="identityVerified != null">#{identityVerified},</if>
+      <if test="employmentSubmitted != null">#{employmentSubmitted},</if>
+      <if test="employmentVerified != null">#{employmentVerified},</if>
+      <if test="complianceSubmitted != null">#{complianceSubmitted},</if>
+      <if test="complianceChecked != null">#{complianceChecked},</if>
+      <if test="riskSubmitted != null">#{riskSubmitted},</if>
+      <if test="riskPercentage != null">#{riskPercentage},</if>
+      <if test="behaviorSubmitted != null">#{behaviorSubmitted},</if>
+      <if test="behaviorPercentage != null">#{behaviorPercentage},</if>
+      <if test="totalScore != null">#{totalScore},</if>
+    </trim>
+  </insert>
+</mapper>

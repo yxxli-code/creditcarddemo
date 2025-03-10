@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zanddemo.creditcard.repository.CreditCardRepository">
+
+  <resultMap id="applicationMap" type="com.zanddemo.creditcard.entity.CreditCardApplicationBasicInfo">
+    <result column="id" property="id"/>
+    <result column="created_by" property="createdBy"/>
+    <result column="created_time" property="createdTime"/>
+    <result column="updated_by" property="updatedBy"/>
+    <result column="updated_time" property="updatedTime"/>
+    <result column="emirates_id" property="emiratesId"/>
+    <result column="name" property="name"/>
+    <result column="mobile_number" property="mobileNumber"/>
+    <result column="nationality" property="nationality"/>
+    <result column="address" property="address"/>
+    <result column="annual_income" property="annualIncome"/>
+    <result column="employment_details" property="employmentDetails"/>
+    <result column="requested_credit_limit" property="requestedCreditLimit"/>
+    <result column="idempotent_id" property="idempotentId"/>
+    <result column="status" property="status"/>
+    <result column="file_id" property="fileId"/>
+  </resultMap>
+
+  <select id="findById" resultMap="applicationMap">
+     SELECT * FROM credit_card_app_request WHERE emirates_id = #{emiratesId}
+  </select>
+
+  <select id="findFileId" resultType="java.lang.String">
+    SELECT file_id FROM credit_card_app_request WHERE emirates_id = #{emiratesId}
+  </select>
+
+  <update id="update" parameterType="com.zanddemo.creditcard.entity.CreditCardApplicationBasicInfo">
+    UPDATE credit_card_app_request
+    <trim prefix="set" suffixOverrides=",">
+      <if test="updatedBy != null and updatedBy !=''">updated_by = #{updatedBy},</if>
+      <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+      <if test="name != null and name !=''">name = #{name},</if>
+      <if test="mobileNumber != null and mobileNumber !=''">mobile_number = #{mobileNumber},</if>
+      <if test="nationality != null and nationality !=''">nationality = #{nationality},</if>
+      <if test="address != null and address !=''">address = #{address},</if>
+      <if test="annualIncome != null">annual_income = #{annualIncome},</if>
+      <if test="employmentDetails != null and employmentDetails !=''">employment_details = #{employmentDetails},</if>
+      <if test="requestedCreditLimit != null">requested_credit_limit = #{requestedCreditLimit},</if>
+      <if test="idempotentId != null">idempotent_id = #{idempotentId},</if>
+      <if test="status != null">status = #{status},</if>
+      <if test="fileId != null">file_id = #{fileId},</if>
+    </trim>
+    WHERE emirates_id = #{emiratesId}
+  </update>
+
+  <insert id="add" parameterType="com.zanddemo.creditcard.entity.CreditCardApplicationBasicInfo">
+    INSERT INTO credit_card_app_request
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="emiratesId != null and emiratesId !=''">emirates_id,</if>
+      <if test="createdBy != null and createdBy !=''">created_by,</if>
+      <if test="createdTime != null">created_time,</if>
+      <if test="name != null and name !=''">name,</if>
+      <if test="mobileNumber != null and mobileNumber !=''">mobile_number,</if>
+      <if test="nationality != null and nationality !=''">nationality,</if>
+      <if test="address != null and address !=''">address,</if>
+      <if test="annualIncome != null">annual_income,</if>
+      <if test="employmentDetails != null and employmentDetails !=''">employment_details,</if>
+      <if test="requestedCreditLimit != null">requested_credit_limit,</if>
+      <if test="idempotentId != null">idempotent_id,</if>
+      <if test="status != null">status,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="emiratesId != null and emiratesId !=''">#{emiratesId},</if>
+      <if test="createdBy != null and createdBy !=''">#{createdBy},</if>
+      <if test="createdTime != null">#{createdTime},</if>
+      <if test="name != null and name !=''">#{name},</if>
+      <if test="mobileNumber != null and mobileNumber !=''">#{mobileNumber},</if>
+      <if test="nationality != null and nationality !=''">#{nationality},</if>
+      <if test="address != null and address !=''">#{address},</if>
+      <if test="annualIncome != null">#{annualIncome},</if>
+      <if test="employmentDetails != null and employmentDetails !=''">#{employmentDetails},</if>
+      <if test="requestedCreditLimit != null">#{requestedCreditLimit},</if>
+      <if test="idempotentId != null">#{idempotentId},</if>
+      <if test="status != null">#{status},</if>
+    </trim>
+  </insert>
+
+</mapper>
